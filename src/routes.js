@@ -8,11 +8,23 @@ export default function(router){
             component:{
                 template:'<p>home</p>'
             }
+            
         },
-        '/test':{
+        '/login':{
+            name:'login',
             component:{
-                template:'<h1>test</h1>'
+                template:'<p>login</p>'
             }
+        },
+        '/note/:nid':{
+            name:'note',
+            component:{
+                template:'<p>note</p>'
+            }
+        },
+        '*': {
+            name:'nofound',
+            component:require('./components/NotFound.vue')
         }
     })
 }

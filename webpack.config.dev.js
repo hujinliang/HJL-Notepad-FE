@@ -42,6 +42,10 @@ module.exports = {
                 loader:'style!css!less'
             },
             {
+                test:/\.css$/,
+                loader:'style!css'
+            },
+            {
                 test:/\.(jpe?g|png|gif)$/,
                 loader:'url?limit=10000'
             },
