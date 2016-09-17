@@ -12,9 +12,7 @@ export default function(router){
         },
         '/login':{
             name:'login',
-            component:{
-                template:'<p>login</p>'
-            }
+            component:require('./components/Login/index.vue')
         },
         '/note/:nid':{
             name:'note',

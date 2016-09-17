@@ -12,6 +12,9 @@ const state = {
 const mutations = {
     [LOGIN_SUCCESS](state,action){
         state.token = action.token;
+
+        console.log(state.token)
+
     },
     [USERINFO_SUCCESS](state,action){
         state.user = action.user;

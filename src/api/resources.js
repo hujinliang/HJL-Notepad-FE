@@ -25,6 +25,6 @@ Vue.http.interceptors.push((req,next) => {
 })
 
 
-export const AuthResource = Vue.resource(API_ROOT + 'auth{/id}');
-export const NoteResource = Vue.resource(API_ROOT + 'note{/id}{/controller}');
-export const UserResource = Vue.resource(API_ROOT + 'user{/id}');
+export const AuthResource = Vue.resource(API_ROOT + '/auth{/id}');
+export const NoteResource = Vue.resource(API_ROOT + '/note{/id}{/controller}');
+export const UserResource = Vue.resource(API_ROOT + '/user{/id}');

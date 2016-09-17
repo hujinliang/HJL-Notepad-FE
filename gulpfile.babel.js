@@ -26,6 +26,6 @@ gulp.task('serve',function(){
     }).listen(DEV_PORT,'localhost',err=>{
         if(err) throw new gutil.PluginError("webpack-dev-server", err)
         gutil.log("[webpack-dev-server]", "==> 🌎  http://localhost:" + DEV_PORT)
-        open('http://localhost:' + DEV_PORT)
+        // open('http://localhost:' + DEV_PORT)
     })
 })
