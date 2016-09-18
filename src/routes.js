@@ -5,9 +5,7 @@ export default function(router){
     router.map({
         '/':{
             name:'home',
-            component:{
-                template:'<p>home</p>'
-            }
+            component:require('./components/Home/index.vue')
             
         },
         '/login':{
@@ -16,9 +14,11 @@ export default function(router){
         },
         '/note/:nid':{
             name:'note',
-            component:{
-                template:'<p>note</p>'
-            }
+            component:require('./components/Note/index.vue')
+        },
+        '/new':{
+            name:'new',
+            component:require('./components/New/index.vue')
         },
         '*': {
             name:'nofound',

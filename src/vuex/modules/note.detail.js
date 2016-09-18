@@ -4,14 +4,18 @@
 import {NOTE_DETAIL,ADD_NOTE,DELETE_NOTE,UPDATE_NOTE} from '../types'
 
 const state = {
-    items:{}
+    item:{}
 };
 
 const mutations = {
     [NOTE_DETAIL](state,action){
-        state.items = action.data;
+        state.item = action.data;
     },
     [UPDATE_NOTE](state,action){
-        state.items = action.data;
+        state.item = action.data;
     }
+}
+
+export default {
+    state,mutations
 }

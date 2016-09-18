@@ -27,6 +27,8 @@ export const getUserInfo = ({dispatch}) => {
             console.log('登录失败')
         }
         dispatch(types.USERINFO_SUCCESS,{user:response.data})
+    }).catch(response => {
+        console.log('获取用户资料失败')
     })
 }
 
@@ -37,7 +39,7 @@ export const localLogin = (store,userInfo) => {
         }
         const token = response.data.token;
         saveCookie('token',token);
-        // getUserInfo(store)
+        getUserInfo(store)
         store.dispatch(types.LOGIN_SUCCESS,{token:token});
         showMsg(store,'登录成功','success');
         store.router.go({path:'/'})
@@ -58,9 +60,14 @@ export const getNoteList = (store) => {
 }
 
 export const getNoteDetail = (store,id) => {
+    
+
+    
     api.getNoteDetail(id).then(response => {
+        
         store.dispatch(types.NOTE_DETAIL,{data:response.data.data})
     }).catch(response => {
+        
         showMsg(store,response.data.error_msg || '获取失败')
     })
 }
@@ -68,8 +75,10 @@ export const getNoteDetail = (store,id) => {
 export const addNote = (store,data) =>{
     api.addNote(data).then(response => {
         store.dispatch(types.ADD_NOTE,{data:response.data.data})
+        showMsg(store,'添加成功','success');
+        store.router.go({name:'home'})
     }).catch(response => {
-        showMsg(store,resposne.data.error_msg || '获取失败')
+        showMsg(store,response.data.error_msg || '添加失败')
     })
 }
 
@@ -77,7 +86,7 @@ export const updateNote = (store,data) => {
     api.updateNote(data).then(response => {
         store.dispatch(types.UPDATE_NOTE,{data:response.data.data})
     }).catch(response => {
-        showMsg(store,resposne.data.error_msg || '获取失败')
+        showMsg(store,response.data.error_msg || '获取失败')
     })
 }
 
@@ -85,6 +94,6 @@ export const deleteNote = (store,id,index) => {
     api.deleteNote(id).then(response => {
         store.dispatch(types.DELETE_NOTE,{index:index})
     }).catch(response => {
-        showMsg(store,resposne.data.error_msg || '获取失败')
+        showMsg(store,response.data.error_msg || '获取失败')
     })
 }

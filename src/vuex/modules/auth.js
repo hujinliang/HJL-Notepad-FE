@@ -4,8 +4,12 @@
 import {LOGIN_SUCCESS,USERINFO_SUCCESS,LOGOUT_USER} from '../types'
 import {getCookie} from '../../utils/authService';
 
+
+var token = getCookie('token')
+
+
 const state = {
-    token: getCookie('token') || null,
+    token: token || null,
     user:null
 };
 

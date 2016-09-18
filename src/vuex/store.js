@@ -11,6 +11,7 @@ import showmsg from './modules/showmsg'
 
 Vue.use(Vuex)
 Vue.config.warnExpressionErrors = false;
+Vue.config.debug = true;
 
 export default new Vuex.Store({
     modules:{

@@ -75,6 +75,9 @@
                     this.localLogin(this.user)
                 }
             }
+        },
+        created(){
+            console.log(this.token)
         }
     }
 

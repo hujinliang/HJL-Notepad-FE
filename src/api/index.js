@@ -17,7 +17,8 @@ export default {
         return NoteResource.save({id:'addNote'},data);
     },
     getNoteDetail: function(id){
-        return NoteRerouce.get({controller:'getNoteDetail',id:id});
+
+        return NoteResource.get({controller:'getNoteDetail',id:id});
     },
     updateNote: function(id,data){
         return NoteRerouce.update({id:id,controller:'updateNote'},data);

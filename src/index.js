@@ -17,7 +17,7 @@ Vue.use(VueValidator);
 
 const router = new VueRouter({
     history:true,
-    _saveScrollPosition:true,
+    saveScrollPosition:true,
     suppressTransitionError:true
 })
 
