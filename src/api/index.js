@@ -20,8 +20,10 @@ export default {
 
         return NoteResource.get({controller:'getNoteDetail',id:id});
     },
-    updateNote: function(id,data){
-        return NoteRerouce.update({id:id,controller:'updateNote'},data);
+    updateNote: function(pack){
+        
+        
+        return NoteResource.update({id:pack.id,controller:'updateNote'},pack.obj);
     },
     deleteNote: function(id){
         return NoteResource.remove({id:id,controller:'deleteNote'}); 

@@ -1,5 +1,5 @@
 <template>
-    <div class="new-page">
+    <div class="new-page" :class="color">
         <div class="new-nav">
             <a @click="back"><</a>
             <p>{{current}}</p>
@@ -8,16 +8,99 @@
                 <input id="fulAvatar" name="files" type="file"/>
                 <button id="btnSub" class="btn btn-primary" @click="upload">上 传</button>
             </form>
-            <div class="setColor"></div>
-            <div class="note-content">
-                <textarea v-model="text"></textarea>
+            <button @click="showCPanel"><i class="fa fa-dashboard"></i></button>
+            <div class="setColor" v-show="showColorPanel">
+                <div class="color color1" :class="{selected:color=='color1'}" @click="chooseColor('color1')"></div>
+                <div class="color color2" :class="{selected:color=='color2'}" @click="chooseColor('color2')"></div>
+                <div class="color color3" :class="{selected:color=='color3'}" @click="chooseColor('color3')"></div>
+                <div class="color color4" :class="{selected:color=='color4'}" @click="chooseColor('color4')"></div>
+                <div class="color color5" :class="{selected:color=='color5'}" @click="chooseColor('color5')"></div>
             </div>
+            <div class="note-content" contenteditable="true" style="border:1px solid #999999">
+                {{{text}}}
+            </div>
+
             <button @click="save">添加</button>
         </div>
     </div>
 </template>
 <style>
+    .new-page{
+        position: absolute;
+        top:0;
+        left:0;
+        bottom:0;
+        right:0;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    .new-page.color1{
+        background-color:  #f7eee5;
+    }
+    .new-page.color2{
+        background-color:  #e9dfc7;
+    }
+    .new-page.color3{
+        background:#a4a4a4;
+    }
+    .new-page.color4{
+        background:#cdefce;
+    }
+    .new-page.color5{
+        background: #e8cad3;
+    }
+    .setColor{
+        background: #cccccc;
+        padding:10px;
+        padding-bottom:5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
 
+    }
+    .color{
+        width:60px;
+        height:60px;
+        display: inline-block;
+        margin-right:5px;
+    }
+    .color1{
+        background:#f7eee5;
+        -webkit-background-clip: content-box;
+        -moz-background-clip: content-box;
+        background-clip: content-box;
+    }
+    .color2{
+        background:#e9dfc7;
+        -webkit-background-clip: content-box;
+        -moz-background-clip: content-box;
+        background-clip: content-box;
+    }
+    .color3{
+        background:#a4a4a4;
+        -webkit-background-clip: content-box;
+        -moz-background-clip: content-box;
+        background-clip: content-box;
+    }
+    .color4{
+        background:#cdefce;
+        -webkit-background-clip: content-box;
+        -moz-background-clip: content-box;
+        background-clip: content-box;
+    }
+    .color5{
+        background: #e8cad3;
+        -webkit-background-clip: content-box;
+        -moz-background-clip: content-box;
+        background-clip: content-box;
+    }
+    .color.selected{
+        border:1px solid #d96f5d;
+    }
+    .note-content img{
+        width:300px;
+        height:auto;
+    }
 </style>
 <script>
     import {addNote,showMsg} from '../../vuex/actions'
@@ -36,8 +119,10 @@
         },
         methods:{
             save(){
+                var instance = this;
                 var obj = {
-                    content:this.text
+                    content:$('.note-content').html(),
+                    color:instance.color
                 }
                 this.addNote(obj);
             },
@@ -62,10 +147,12 @@
                     processData:false,
                     success:function(data){
 
+                        console.log(data)
 
 
                         if(200 === data.code){
                             this.showMsg('上传成功','success')
+                            $('.note-content').append('<img src="'+data.msg.url+'" />')
 
                         }else{
                             this.showMsg('上传失败')
@@ -78,15 +165,29 @@
                         this.showMsg("与服务器发生错误")
                     }.bind(this)
                 })
+            },
+            showCPanel(){
+                if(this.showColorPanel){
+                    this.showColorPanel = false
+                }else{
+                    this.showColorPanel = true
+                }
+            },
+            chooseColor(color){
+                this.color = color
             }
         },
         data(){
             return {
                 current:new Date(),
+                showColorPanel:false,
                 text:'',
-                color:'',
+                color:'color1',
                 calltime:''
             }
+        },
+        created(){
+
         }
 
     }

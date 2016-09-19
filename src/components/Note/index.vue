@@ -1,16 +1,113 @@
 <template>
     <div>
-        <h1>{{noteDetail._id}}</h1>
-        <p>{{noteDetail.content}}</p>
-        <h6>{{noteDetail.created}}</h6>
+        <div class="note-page" :class="noteDetail.color">
+            <div class="new-nav">
+                <a @click="back"><</a>
+                <p>{{noteDetail.created}}</p>
+                <div class="setTime"></div>
+                <form class="uploadForm" id="uploadForm" role="form" method="post" enctype='multipart/form-data' action='javascript:;'>
+                    <input id="fulAvatar" name="files" type="file"/>
+                    <button id="btnSub" class="btn btn-primary" @click="upload">上 传</button>
+                </form>
+                <button @click="showCPanel"><i class="fa fa-dashboard"></i></button>
+                <div class="setColor" v-show="showColorPanel">
+                    <div class="color color1" :class="{selected:noteDetail.color=='color1'}" @click="chooseColor('color1')"></div>
+                    <div class="color color2" :class="{selected:noteDetail.color=='color2'}" @click="chooseColor('color2')"></div>
+                    <div class="color color3" :class="{selected:noteDetail.color=='color3'}" @click="chooseColor('color3')"></div>
+                    <div class="color color4" :class="{selected:noteDetail.color=='color4'}" @click="chooseColor('color4')"></div>
+                    <div class="color color5" :class="{selected:noteDetail.color=='color5'}" @click="chooseColor('color5')"></div>
+                </div>
+                <div class="note-content" contenteditable="true" style="border:1px solid #999999">
+                    {{{noteDetail.content}}}
+                </div>
+                <button @click="save">update</button>
+            </div>
+        </div>
     </div>
 </template>
 <style>
+    .note-page{
+        position: absolute;
+        top:0;
+        left:0;
+        bottom:0;
+        right:0;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    .note-page.color1{
+        background-color:  #f7eee5;
+    }
+    .note-page.color2{
+        background-color:  #e9dfc7;
+    }
+    .note-page.color3{
+        background:#a4a4a4;
+    }
+    .note-page.color4{
+        background:#cdefce;
+    }
+    .note-page.color5{
+        background: #e8cad3;
+    }
+    .setColor{
+        background: #cccccc;
+        padding:10px;
+        padding-bottom:5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
 
+    }
+    .color{
+        width:60px;
+        height:60px;
+        display: inline-block;
+        margin-right:5px;
+    }
+    .color1{
+        background:#f7eee5;
+        -webkit-background-clip: content-box;
+        -moz-background-clip: content-box;
+        background-clip: content-box;
+    }
+    .color2{
+        background:#e9dfc7;
+        -webkit-background-clip: content-box;
+        -moz-background-clip: content-box;
+        background-clip: content-box;
+    }
+    .color3{
+        background:#a4a4a4;
+        -webkit-background-clip: content-box;
+        -moz-background-clip: content-box;
+        background-clip: content-box;
+    }
+    .color4{
+        background:#cdefce;
+        -webkit-background-clip: content-box;
+        -moz-background-clip: content-box;
+        background-clip: content-box;
+    }
+    .color5{
+        background: #e8cad3;
+        -webkit-background-clip: content-box;
+        -moz-background-clip: content-box;
+        background-clip: content-box;
+    }
+    .color.selected{
+        border:1px solid #d96f5d;
+    }
+    .note-content img{
+        width:300px;
+        height:auto;
+    }
 </style>
 <script>
-    import {getNoteDetail} from '../../vuex/actions'
-
+    import {getNoteDetail,showMsg,updateNote} from '../../vuex/actions'
+    import $ from 'jquery'
+    import jQuery from 'jquery'
+    import {API_ROOT}  from '../../config'
 
     export default{
         vuex:{
@@ -18,7 +115,7 @@
                 noteDetail:state => state.noteDetail.item
             },
             actions:{
-                getNoteDetail
+                getNoteDetail,showMsg,updateNote
             }
         },
         route:{
@@ -28,6 +125,73 @@
 
                 this.getNoteDetail(this.$route.params.nid);
                 transition.next();
+            }
+        },
+        data(){
+            return {
+                showColorPanel:false,
+            }
+        },
+        methods:{
+            save(){
+
+                var obj = {
+                    content:$('.note-content').html(),
+                    color:this.noteDetail.color
+                }
+
+                var pack = {
+                    id:this.$route.params.nid,
+                    obj
+                }
+
+                this.updateNote(pack);
+            },
+            back(){
+                this.$route.router.go({name:'home'})
+            },
+            upload(){
+
+
+                var uploadForm = $('#uploadForm')[0]
+
+                var formData = new FormData(uploadForm);
+                let url = API_ROOT + '/note/upload';
+
+                $.ajax({
+                    url:url,
+                    type:'POST',
+                    data:formData,
+                    async:false,
+                    cache:false,
+                    contentType:false,
+                    processData:false,
+                    success:function(data){
+
+                        if(200 === data.code){
+                            this.showMsg('上传成功','success')
+                            $('.note-content').append('<img src="'+data.msg.url+'" />')
+                            $('.note-content').append('<br/>')
+
+                        }else{
+                            this.showMsg('上传失败')
+                        }
+                    }.bind(this),
+                    error:function(data){
+
+                        this.showMsg("与服务器发生错误")
+                    }.bind(this)
+                })
+            },
+            showCPanel(){
+                if(this.showColorPanel){
+                    this.showColorPanel = false
+                }else{
+                    this.showColorPanel = true
+                }
+            },
+            chooseColor(color){
+                this.noteDetail.color = color;
             }
         }
     }

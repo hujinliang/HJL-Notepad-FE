@@ -85,6 +85,7 @@ export const addNote = (store,data) =>{
 export const updateNote = (store,data) => {
     api.updateNote(data).then(response => {
         store.dispatch(types.UPDATE_NOTE,{data:response.data.data})
+        store.router.go({name:'home'})
     }).catch(response => {
         showMsg(store,response.data.error_msg || '获取失败')
     })
@@ -94,6 +95,6 @@ export const deleteNote = (store,id,index) => {
     api.deleteNote(id).then(response => {
         store.dispatch(types.DELETE_NOTE,{index:index})
     }).catch(response => {
-        showMsg(store,response.data.error_msg || '获取失败')
+        showMsg(store,response.data.error_msg || '删除失败')
     })
 }

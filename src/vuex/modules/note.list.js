@@ -16,7 +16,6 @@ const mutations = {
     },
     [DELETE_NOTE](state,action){
         state.items.splice(action.index,1);
-        state.items = Object.create(state.items)
     }
 }
 

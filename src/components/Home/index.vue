@@ -8,9 +8,9 @@
         <ul>
             <li v-for="item in noteList" style="border:1px solid #999999" @click="showDetail(item._id)">
                 <h1>{{item._id}}</h1>
-                <p>{{item.content}}</p>
+                <div>{{{item.content}}}</div>
                 <h6>{{item.created}}</h6>
-                <button @click="deleteNote(item._id,$index)">删除</button>
+                <button @click.stop="deleteNote(item._id,$index)">删除</button>
             </li>
         </ul>
 
