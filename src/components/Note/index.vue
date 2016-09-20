@@ -3,12 +3,21 @@
         <div class="note-page" :class="noteDetail.color">
             <div class="new-nav">
                 <a @click="back"><</a>
-                <p>{{noteDetail.created}}</p>
-                <div class="setTime"></div>
-                <form class="uploadForm" id="uploadForm" role="form" method="post" enctype='multipart/form-data' action='javascript:;'>
-                    <input id="fulAvatar" name="files" type="file"/>
-                    <button id="btnSub" class="btn btn-primary" @click="upload">上 传</button>
-                </form>
+                <p>{{noteDetail.created | formatDate1}}</p>
+                <p>{{noteDetail.created | formatDate2}}</p>
+                <button @click="showTPanel"><i class="fa fa-clock-o"></i></button><span>{{noteDetail.calltime | formatDate3}}</span>
+                <div class="setTime" v-show="showTimePanel">
+                    <div class="input-group date" id="datetimepicker">
+                        <input class="form-controller" id="date" type="date" v-model="noteDetail.calltime" @change="change">
+                    </div>
+                </div>
+                <button @click="showUPanel"><i class="fa fa-paperclip"></i></button>
+                <div v-show="showUploadPanel">
+                    <form class="uploadForm" id="uploadForm" role="form" method="post" enctype='multipart/form-data' action='javascript:;'>
+                        <input id="fulAvatar" name="files" type="file"/>
+                        <button id="btnSub" class="btn btn-primary" @click="upload">上 传</button>
+                    </form>
+                </div>
                 <button @click="showCPanel"><i class="fa fa-dashboard"></i></button>
                 <div class="setColor" v-show="showColorPanel">
                     <div class="color color1" :class="{selected:noteDetail.color=='color1'}" @click="chooseColor('color1')"></div>
@@ -17,10 +26,11 @@
                     <div class="color color4" :class="{selected:noteDetail.color=='color4'}" @click="chooseColor('color4')"></div>
                     <div class="color color5" :class="{selected:noteDetail.color=='color5'}" @click="chooseColor('color5')"></div>
                 </div>
+                <button @click="save">update</button>
                 <div class="note-content" contenteditable="true" style="border:1px solid #999999">
                     {{{noteDetail.content}}}
                 </div>
-                <button @click="save">update</button>
+
             </div>
         </div>
     </div>
@@ -121,15 +131,17 @@
         route:{
             data(transition){
 
-
-
                 this.getNoteDetail(this.$route.params.nid);
                 transition.next();
             }
         },
         data(){
+
             return {
                 showColorPanel:false,
+                showTimePanel:false,
+                showUploadPanel:false,
+
             }
         },
         methods:{
@@ -140,11 +152,17 @@
                     color:this.noteDetail.color
                 }
 
+                if(this.noteDetail.calltime !== ''){
+                    obj.calltime = this.noteDetail.calltime;
+                }
+
+
                 var pack = {
                     id:this.$route.params.nid,
                     obj
                 }
 
+//                console.log(obj)
                 this.updateNote(pack);
             },
             back(){
@@ -190,9 +208,29 @@
                     this.showColorPanel = true
                 }
             },
+            showTPanel(){
+                if(this.showTimePanel){
+                    this.showTimePanel = false;
+                }else{
+                    this.showTimePanel = true;
+                }
+            },
+            showUPanel(){
+                if(this.showUploadPanel){
+                    this.showUploadPanel = false;
+                }else{
+                    this.showUploadPanel = true;
+                }
+            },
             chooseColor(color){
                 this.noteDetail.color = color;
+            },
+            change(){
+                console.log(new Date($('#date')[0].value))
             }
+        },
+        created(){
+
         }
     }
 </script>

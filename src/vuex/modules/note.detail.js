@@ -9,6 +9,9 @@ const state = {
 
 const mutations = {
     [NOTE_DETAIL](state,action){
+        if(!action.data.calltime){
+            action.data.calltime = ''
+        }
         state.item = action.data;
     },
     [UPDATE_NOTE](state,action){

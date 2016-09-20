@@ -2,12 +2,22 @@
     <div class="new-page" :class="color">
         <div class="new-nav">
             <a @click="back"><</a>
-            <p>{{current}}</p>
+            <p>{{current | formatDate1}}</p>
+            <p>{{current | formatDate2}}</p>
             <div class="setTime"></div>
-            <form class="uploadForm" id="uploadForm" role="form" method="post" enctype='multipart/form-data' action='javascript:;'>
-                <input id="fulAvatar" name="files" type="file"/>
-                <button id="btnSub" class="btn btn-primary" @click="upload">上 传</button>
-            </form>
+            <button @click="showTPanel"><i class="fa fa-clock-o"></i></button><span>{{calltime | formatDate3}}</span>
+            <div class="setTime" v-show="showTimePanel">
+                <div class="input-group date" id="datetimepicker">
+                    <input class="form-controller" id="date" type="date" v-model="calltime" @change="change">
+                </div>
+            </div>
+            <button @click="showUPanel"><i class="fa fa-paperclip"></i></button>
+            <div v-show="showUploadPanel>
+                <form class="uploadForm" id="uploadForm" role="form" method="post" enctype='multipart/form-data' action='javascript:;'>
+                    <input id="fulAvatar" name="files" type="file"/>
+                    <button id="btnSub" class="btn btn-primary" @click="upload">上 传</button>
+                </form>
+            </div>
             <button @click="showCPanel"><i class="fa fa-dashboard"></i></button>
             <div class="setColor" v-show="showColorPanel">
                 <div class="color color1" :class="{selected:color=='color1'}" @click="chooseColor('color1')"></div>
@@ -16,11 +26,12 @@
                 <div class="color color4" :class="{selected:color=='color4'}" @click="chooseColor('color4')"></div>
                 <div class="color color5" :class="{selected:color=='color5'}" @click="chooseColor('color5')"></div>
             </div>
+            <button @click="save">添加</button>
             <div class="note-content" contenteditable="true" style="border:1px solid #999999">
                 {{{text}}}
             </div>
 
-            <button @click="save">添加</button>
+
         </div>
     </div>
 </template>
@@ -124,6 +135,11 @@
                     content:$('.note-content').html(),
                     color:instance.color
                 }
+
+                if(instance.calltime !== ''){
+                    obj.calltime = instance.calltime
+                }
+
                 this.addNote(obj);
             },
             back(){
@@ -173,6 +189,20 @@
                     this.showColorPanel = true
                 }
             },
+            showTPanel(){
+                if(this.showTimePanel){
+                    this.showTimePanel = false;
+                }else{
+                    this.showTimePanel = true;
+                }
+            },
+            showUPanel(){
+                if(this.showUploadPanel){
+                    this.showUploadPanel = false;
+                }else{
+                    this.showUploadPanel = true;
+                }
+            },
             chooseColor(color){
                 this.color = color
             }
@@ -181,6 +211,8 @@
             return {
                 current:new Date(),
                 showColorPanel:false,
+                showTimePanel:false,
+                showUploadPanel:false,
                 text:'',
                 color:'color1',
                 calltime:''
