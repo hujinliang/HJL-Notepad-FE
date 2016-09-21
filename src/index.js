@@ -12,6 +12,7 @@ import {sync} from 'vuex-router-sync'
 import 'font-awesome/css/font-awesome.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'vue-toast/dist/vue-toast.min.css'
+import './assets/less/index.less'
 
 
 Vue.use(VueRouter);

@@ -1,18 +1,29 @@
 <template>
-    <div>
-        <p>token:{{auth.token}}</p>
-        <p>id:{{auth.user._id}}</p>
-        <p>nickname:{{auth.user.nickname}}</p>
-        <p>created:{{auth.user.created}}</p>
-        <button class="btn btn-primary" @click="addNote">Add note</button>
-        <ul>
-            <li v-for="item in noteList" style="border:1px solid #999999" @click="showDetail(item._id)">
-                <h1>{{item._id}}</h1>
-                <div>{{{item.content}}}</div>
-                <h6>{{item.created}}</h6>
-                <button @click.stop="deleteNote(item._id,$index)">删除</button>
-            </li>
-        </ul>
+    <div class="out-container">
+        <div class="wrap-container">
+            <div class="navbar">
+                <span class="title">EZ note</span>
+                <a class="add" @click="addNote">
+                    <i class="fa fa-plus-circle"></i>
+                </a>
+                <a class="avatar" href="javascript:;" :title="auth.user.nickname">
+                    <img :src="auth.user.avatar || defaultAvatar">
+                </a>
+
+            </div>
+            <div class="note-list">
+                <!--<ul>-->
+                    <div v-for="item in noteList" class="note-item" @click="showDetail(item._id)">
+                        <div class="inner-item" :class="item.color">
+                            <div class="item-content">{{{item.content}}}</div>
+                            <a class="delete-btn" @click.stop="deleteNote(item._id,$index)"><i class="fa fa-close"></i></a>
+                            <a class="clock" v-if="item.calltime"><i class="fa fa-clock-o"></i></a>
+                        </div>
+
+                    </div>
+                <!--</ul>-->
+            </div>
+        </div>
 
     </div>
 </template>
@@ -24,12 +35,13 @@
 <script>
 
     import {getUserInfo,getNoteList,deleteNote} from '../../vuex/actions'
+    import defaultAvatar from '../../assets/images/userimg.png'
 
     export default{
         vuex:{
             getters:{
                 auth:state => state.auth,
-                noteList:state => state.noteList.items
+                noteList:state => state.noteList.items,
 
             },
             actions:{
@@ -61,6 +73,11 @@
             },
             deleteNote(id,index){
                 this.deleteNote(id,index);
+            }
+        },
+        data(){
+            return {
+                defaultAvatar:defaultAvatar
             }
         }
     }

@@ -1,0 +1,124 @@
+html{
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background: #080808;
+  font-family:Lato, "Microsoft Jhenghei", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+body{
+  background: #080808;
+}
+*{
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.out-container{
+  position: absolute;
+  left:0;
+  right:0;
+  .wrap-container{
+    margin-top:50px;
+    background: #080808;
+  }
+}
+.navbar{
+  position: fixed;
+  left:0;
+  right:0;
+  top:0;
+  height:50px;
+  background: #00d8ff;
+  border-bottom:1px solid #999999;
+
+  text-align: center;
+  font-size:24px;
+  z-index: 1;
+  //opacity:0.85;
+  .avatar{
+    position: absolute;
+    right:0;
+    top:0;
+    bottom:0;
+    margin:auto 10px;
+    width:40px;
+    height:40px;
+    overflow: hidden;
+    border-radius:50%;
+    img{
+      width:100%;
+      height:100%;
+    }
+  }
+  .add{
+    position: absolute;
+    right:66px;
+    top:0;
+    bottom:0;
+    margin:auto 0;
+    font-size:36px;
+    line-height:50px;
+    color: #000;
+  }
+  span.title{
+    line-height:50px;
+  }
+}
+
+.note-list{
+  padding:5px;
+  .note-item{
+    float: left;
+    width:50%;
+    height:200px;
+    overflow: hidden;
+    padding:3px;
+  }
+  .inner-item{
+    position: relative;
+    border:1px solid #c0c0c0;
+    border-radius:7px;
+    height:100%;
+    overflow: hidden;
+    padding:25px 12px;
+    &.color1{
+      background:  #f7eee5;
+    }
+    &.color2{
+      background:  #e9dfc7;
+    }
+    &.color3{
+      background:#a4a4a4;
+    }
+    &.color4{
+      background:#cdefce;
+    }
+    &.color5{
+      background: #e8cad3;
+    }
+    .delete-btn{
+      position: absolute;
+      right:3px;
+      top:0;
+      font-size:20px;
+      color: #000;
+
+    }
+    .item-content{
+      height:100%;
+      overflow: hidden;
+      color: #333;
+      font-size:14px;
+      img{
+        width:100%;
+        height:auto;
+      }
+    }
+    .clock{
+      position: absolute;
+      right:3px;
+      bottom:0;
+      font-size:20px;
+      color: #000;
+    }
+  }
+}
