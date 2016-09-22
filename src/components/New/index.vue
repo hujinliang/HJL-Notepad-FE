@@ -1,24 +1,27 @@
 <template>
     <div class="new-page" :class="color">
         <div class="new-nav">
-            <a @click="back"><</a>
-            <p>{{current | formatDate1}}</p>
-            <p>{{current | formatDate2}}</p>
-            <div class="setTime"></div>
-            <button @click="showTPanel"><i class="fa fa-clock-o"></i></button><span>{{calltime | formatDate3}}</span>
+            <a @click="back" class="back-btn"><i class="fa fa-chevron-left"></i></a>
+            <div class="time-panel">
+                <p class="time1">{{current | formatDate1}}</p>
+                <p class="time2">{{current | formatDate2}}</p>
+            </div>
+
+            <a class="time-btn" @click="showTPanel"><i class="fa fa-clock-o"></i></a>
+            <span class="time-show">{{calltime | formatDate3}}</span>
             <div class="setTime" v-show="showTimePanel">
                 <div class="input-group date" id="datetimepicker">
-                    <input class="form-controller" id="date" type="date" v-model="calltime" @change="change">
+                    <input class="form-controller" id="date" type="date" v-model="calltime">
                 </div>
             </div>
-            <button @click="showUPanel"><i class="fa fa-paperclip"></i></button>
-            <div v-show="showUploadPanel>
+            <a class="upload-btn" @click="showUPanel"><i class="fa fa-paperclip"></i></a>
+            <div v-show="showUploadPanel">
                 <form class="uploadForm" id="uploadForm" role="form" method="post" enctype='multipart/form-data' action='javascript:;'>
                     <input id="fulAvatar" name="files" type="file"/>
                     <button id="btnSub" class="btn btn-primary" @click="upload">上 传</button>
                 </form>
             </div>
-            <button @click="showCPanel"><i class="fa fa-dashboard"></i></button>
+            <a class="color-btn" @click="showCPanel"><i class="fa fa-dashboard"></i></a>
             <div class="setColor" v-show="showColorPanel">
                 <div class="color color1" :class="{selected:color=='color1'}" @click="chooseColor('color1')"></div>
                 <div class="color color2" :class="{selected:color=='color2'}" @click="chooseColor('color2')"></div>
@@ -26,92 +29,18 @@
                 <div class="color color4" :class="{selected:color=='color4'}" @click="chooseColor('color4')"></div>
                 <div class="color color5" :class="{selected:color=='color5'}" @click="chooseColor('color5')"></div>
             </div>
-            <button @click="save">添加</button>
-            <div class="note-content" contenteditable="true" style="border:1px solid #999999">
-                {{{text}}}
-            </div>
-
-
+            <a class="save-btn" @click="save"><i class="fa fa-plus"></i></a>
         </div>
+        <div class="note-content" contenteditable="true" style="border:1px solid #999999">
+            {{{text}}}
+        </div>
+
+
+
     </div>
 </template>
 <style>
-    .new-page{
-        position: absolute;
-        top:0;
-        left:0;
-        bottom:0;
-        right:0;
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-    .new-page.color1{
-        background-color:  #f7eee5;
-    }
-    .new-page.color2{
-        background-color:  #e9dfc7;
-    }
-    .new-page.color3{
-        background:#a4a4a4;
-    }
-    .new-page.color4{
-        background:#cdefce;
-    }
-    .new-page.color5{
-        background: #e8cad3;
-    }
-    .setColor{
-        background: #cccccc;
-        padding:10px;
-        padding-bottom:5px;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
 
-    }
-    .color{
-        width:60px;
-        height:60px;
-        display: inline-block;
-        margin-right:5px;
-    }
-    .color1{
-        background:#f7eee5;
-        -webkit-background-clip: content-box;
-        -moz-background-clip: content-box;
-        background-clip: content-box;
-    }
-    .color2{
-        background:#e9dfc7;
-        -webkit-background-clip: content-box;
-        -moz-background-clip: content-box;
-        background-clip: content-box;
-    }
-    .color3{
-        background:#a4a4a4;
-        -webkit-background-clip: content-box;
-        -moz-background-clip: content-box;
-        background-clip: content-box;
-    }
-    .color4{
-        background:#cdefce;
-        -webkit-background-clip: content-box;
-        -moz-background-clip: content-box;
-        background-clip: content-box;
-    }
-    .color5{
-        background: #e8cad3;
-        -webkit-background-clip: content-box;
-        -moz-background-clip: content-box;
-        background-clip: content-box;
-    }
-    .color.selected{
-        border:1px solid #d96f5d;
-    }
-    .note-content img{
-        width:300px;
-        height:auto;
-    }
 </style>
 <script>
     import {addNote,showMsg} from '../../vuex/actions'
@@ -215,7 +144,7 @@
                 showUploadPanel:false,
                 text:'',
                 color:'color1',
-                calltime:''
+                calltime:'2016-9-10'
             }
         },
         created(){
