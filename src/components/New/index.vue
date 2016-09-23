@@ -10,15 +10,13 @@
             <a class="time-btn" @click="showTPanel"><i class="fa fa-clock-o"></i></a>
             <span class="time-show">{{calltime | formatDate3}}</span>
             <div class="setTime" v-show="showTimePanel">
-                <div class="input-group date" id="datetimepicker">
-                    <input class="form-controller" id="date" type="date" v-model="calltime">
-                </div>
+                <input class="form-controller" id="date" type="date" v-model="calltime">
             </div>
             <a class="upload-btn" @click="showUPanel"><i class="fa fa-paperclip"></i></a>
-            <div v-show="showUploadPanel">
+            <div class="setUpload" v-show="showUploadPanel">
                 <form class="uploadForm" id="uploadForm" role="form" method="post" enctype='multipart/form-data' action='javascript:;'>
                     <input id="fulAvatar" name="files" type="file"/>
-                    <button id="btnSub" class="btn btn-primary" @click="upload">上 传</button>
+                    <button id="btnSub" class="btn btn-success btn-xs" @click="upload">上 传</button>
                 </form>
             </div>
             <a class="color-btn" @click="showCPanel"><i class="fa fa-dashboard"></i></a>
@@ -113,23 +111,38 @@
             },
             showCPanel(){
                 if(this.showColorPanel){
-                    this.showColorPanel = false
+                    this.showColorPanel = false;
+                    this.nowShow = '';
                 }else{
-                    this.showColorPanel = true
+                    this.showColorPanel = true;
+                    if(this.nowShow){
+                        this[this.nowShow] = false;
+                    }
+                    this.nowShow = 'showColorPanel';
                 }
             },
             showTPanel(){
                 if(this.showTimePanel){
                     this.showTimePanel = false;
+                    this.nowShow = '';
                 }else{
                     this.showTimePanel = true;
+                    if(this.nowShow){
+                        this[this.nowShow] = false;
+                    }
+                    this.nowShow = 'showTimePanel';
                 }
             },
             showUPanel(){
                 if(this.showUploadPanel){
                     this.showUploadPanel = false;
+                    this.nowShow = '';
                 }else{
                     this.showUploadPanel = true;
+                    if(this.nowShow){
+                        this[this.nowShow] = false;
+                    }
+                    this.nowShow = 'showUploadPanel';
                 }
             },
             chooseColor(color){
@@ -144,7 +157,9 @@
                 showUploadPanel:false,
                 text:'',
                 color:'color1',
-                calltime:'2016-9-10'
+                calltime:'2016-9-10',
+                nowShow:''
+
             }
         },
         created(){

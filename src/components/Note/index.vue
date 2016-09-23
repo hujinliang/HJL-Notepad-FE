@@ -60,58 +60,7 @@
     .note-page.color5{
         background: #e8cad3;
     }
-    .setColor{
-        background: #cccccc;
-        padding:10px;
-        padding-bottom:5px;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
 
-    }
-    .color{
-        width:60px;
-        height:60px;
-        display: inline-block;
-        margin-right:5px;
-    }
-    .color1{
-        background:#f7eee5;
-        -webkit-background-clip: content-box;
-        -moz-background-clip: content-box;
-        background-clip: content-box;
-    }
-    .color2{
-        background:#e9dfc7;
-        -webkit-background-clip: content-box;
-        -moz-background-clip: content-box;
-        background-clip: content-box;
-    }
-    .color3{
-        background:#a4a4a4;
-        -webkit-background-clip: content-box;
-        -moz-background-clip: content-box;
-        background-clip: content-box;
-    }
-    .color4{
-        background:#cdefce;
-        -webkit-background-clip: content-box;
-        -moz-background-clip: content-box;
-        background-clip: content-box;
-    }
-    .color5{
-        background: #e8cad3;
-        -webkit-background-clip: content-box;
-        -moz-background-clip: content-box;
-        background-clip: content-box;
-    }
-    .color.selected{
-        border:1px solid #d96f5d;
-    }
-    .note-content img{
-        width:300px;
-        height:auto;
-    }
 </style>
 <script>
     import {getNoteDetail,showMsg,updateNote} from '../../vuex/actions'

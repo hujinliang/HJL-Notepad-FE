@@ -164,22 +164,34 @@ body{
 .new-page.color5{
   background: #e8cad3;
 }
-.setColor{
-  //position: absolute;
 
-  background: #cccccc;
-  padding:10px;
-  padding-bottom:5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
+.setColor{
+  position: absolute;
+  top:50px;
+  right:10px;
+  width:239px;
+  background: #000000;
+  padding:5px;
+  height:50px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;;
 
 }
+.setColor:after{
+  content: '';
+  position: absolute;
+  border:10px solid transparent;
+  border-bottom-color:rgb(0,0,0);
+  top:-17px;
+  right:29px;
+}
+
 .color{
-  width:60px;
-  height:60px;
+  width:40px;
+  height:40px;
   display: inline-block;
-  margin-right:5px;
+  //margin-right:5px;
 }
 .color1{
   background:#f7eee5;
@@ -217,6 +229,67 @@ body{
 .note-content img{
   width:300px;
   height:auto;
+}
+
+.setUpload{
+  position: absolute;
+  top:50px;
+  right:39px;
+  width:239px;
+  background: #000000;
+  padding:5px;
+  height:50px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  font-size:12px;
+  color: #ffffff;
+  &:after{
+    content: '';
+    position: absolute;
+    border:10px solid transparent;
+    border-bottom-color:rgb(0,0,0);
+    top:-17px;
+    right:29px;
+  }
+  input{
+    margin-top:-4px;
+  }
+  button{
+    position: absolute;
+    top:13px;
+    right:4px;
+
+  }
+
+}
+
+.setTime{
+  position: absolute;
+  top:50px;
+  right:131px;
+  width:146px;
+  background: #000000;
+  padding:5px;
+  height:50px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  line-height:37px;
+  &:after{
+    content: '';
+    position: absolute;
+    border:10px solid transparent;
+    border-bottom-color:rgb(0,0,0);
+    top:-17px;
+    right:29px;
+  }
+  input{
+    height:20px;
+    vertical-align: middle;
+    font-size:12px;
+    margin-left:10px;
+  }
 }
 
 .new-nav{
