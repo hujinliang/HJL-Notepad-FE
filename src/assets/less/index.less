@@ -12,7 +12,9 @@ body{
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-
+.vue-toast-manager_container{
+  z-index: 2;
+}
 //home page
 .out-container{
   position: absolute;
@@ -140,7 +142,7 @@ body{
 
 
 //new page
-.new-page{
+.new-page,.note-page{
   position: absolute;
   top:0;
   left:0;
@@ -292,7 +294,8 @@ body{
   }
 }
 
-.new-nav{
+.new-nav,.note-nav{
+  z-index: 1;
   position: fixed;
   top:0;
   left:0;
@@ -370,6 +373,44 @@ body{
 
 
 .note-content{
-  margin-top:60px;
+  padding:10px;
+  font-size:24px;
+  top:55px;
+  border:1px solid #cccccc;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;;
+  position: fixed;
+  overflow-x: hidden;
+  overflow-y: auto;
+  bottom:2px;
+  width:96%;
+  left:0;
+  right:0;
+  margin:0 auto;
+  outline:none;
+  &:focus{
+    outline:none;
+  }
+  img{
+    width:100%;
+    height:auto;
+  }
+}
 
+//note page
+.note-page.color1{
+  background-color:  #f7eee5;
+}
+.note-page.color2{
+  background-color:  #e9dfc7;
+}
+.note-page.color3{
+  background:#a4a4a4;
+}
+.note-page.color4{
+  background:#cdefce;
+}
+.note-page.color5{
+  background: #e8cad3;
 }

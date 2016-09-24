@@ -85,7 +85,8 @@ export const addNote = (store,data) =>{
 export const updateNote = (store,data) => {
     api.updateNote(data).then(response => {
         store.dispatch(types.UPDATE_NOTE,{data:response.data.data})
-        store.router.go({name:'home'})
+        store.router.go({name:'home'});
+        showMsg(store,'更新成功','success');
     }).catch(response => {
         showMsg(store,response.data.error_msg || '获取失败')
     })

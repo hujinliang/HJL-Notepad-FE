@@ -1,24 +1,25 @@
 <template>
     <div>
         <div class="note-page" :class="noteDetail.color">
-            <div class="new-nav">
-                <a @click="back"><</a>
-                <p>{{noteDetail.created | formatDate1}}</p>
-                <p>{{noteDetail.created | formatDate2}}</p>
-                <button @click="showTPanel"><i class="fa fa-clock-o"></i></button><span>{{noteDetail.calltime | formatDate3}}</span>
-                <div class="setTime" v-show="showTimePanel">
-                    <div class="input-group date" id="datetimepicker">
-                        <input class="form-controller" id="date" type="date" v-model="noteDetail.calltime" @change="change">
-                    </div>
+            <div class="note-nav">
+                <a @click="back" class="back-btn"><i class="fa fa-chevron-left"></i></a>
+                <div class="time-panel">
+                    <p>{{noteDetail.created | formatDate1}}</p>
+                    <p>{{noteDetail.created | formatDate2}}</p>
                 </div>
-                <button @click="showUPanel"><i class="fa fa-paperclip"></i></button>
-                <div v-show="showUploadPanel">
+                <a class="time-btn" @click="showTPanel"><i class="fa fa-clock-o"></i></a>
+                <span class="time-show">{{noteDetail.calltime | formatDate3}}</span>
+                <div class="setTime" v-show="showTimePanel">
+                    <input class="form-controller" id="date" type="date" v-model="noteDetail.calltime" @change="timechange">
+                </div>
+                <a class="upload-btn" @click="showUPanel"><i class="fa fa-paperclip"></i></a>
+                <div class="setUpload" v-show="showUploadPanel">
                     <form class="uploadForm" id="uploadForm" role="form" method="post" enctype='multipart/form-data' action='javascript:;'>
                         <input id="fulAvatar" name="files" type="file"/>
-                        <button id="btnSub" class="btn btn-primary" @click="upload">上 传</button>
+                        <button id="btnSub" class="btn btn-success btn-xs" @click="upload">上 传</button>
                     </form>
                 </div>
-                <button @click="showCPanel"><i class="fa fa-dashboard"></i></button>
+                <a class="color-btn" @click="showCPanel"><i class="fa fa-dashboard"></i></a>
                 <div class="setColor" v-show="showColorPanel">
                     <div class="color color1" :class="{selected:noteDetail.color=='color1'}" @click="chooseColor('color1')"></div>
                     <div class="color color2" :class="{selected:noteDetail.color=='color2'}" @click="chooseColor('color2')"></div>
@@ -26,40 +27,16 @@
                     <div class="color color4" :class="{selected:noteDetail.color=='color4'}" @click="chooseColor('color4')"></div>
                     <div class="color color5" :class="{selected:noteDetail.color=='color5'}" @click="chooseColor('color5')"></div>
                 </div>
-                <button @click="save">update</button>
-                <div class="note-content" contenteditable="true" style="border:1px solid #999999">
-                    {{{noteDetail.content}}}
-                </div>
-
+                <a class="save-btn" @click="save"><i class="fa fa-plus"></i></a>
+            </div>
+            <div class="note-content" contenteditable="true">
+                {{{noteDetail.content}}}
             </div>
         </div>
     </div>
 </template>
 <style>
-    .note-page{
-        position: absolute;
-        top:0;
-        left:0;
-        bottom:0;
-        right:0;
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-    .note-page.color1{
-        background-color:  #f7eee5;
-    }
-    .note-page.color2{
-        background-color:  #e9dfc7;
-    }
-    .note-page.color3{
-        background:#a4a4a4;
-    }
-    .note-page.color4{
-        background:#cdefce;
-    }
-    .note-page.color5{
-        background: #e8cad3;
-    }
+
 
 </style>
 <script>
@@ -90,7 +67,7 @@
                 showColorPanel:false,
                 showTimePanel:false,
                 showUploadPanel:false,
-
+                nowShow:''
             }
         },
         methods:{
@@ -138,7 +115,7 @@
                         if(200 === data.code){
                             this.showMsg('上传成功','success')
                             $('.note-content').append('<img src="'+data.msg.url+'" />')
-                            $('.note-content').append('<br/>')
+                            this.showUPanel()
 
                         }else{
                             this.showMsg('上传失败')
@@ -152,30 +129,46 @@
             },
             showCPanel(){
                 if(this.showColorPanel){
-                    this.showColorPanel = false
+                    this.showColorPanel = false;
+                    this.nowShow = '';
                 }else{
-                    this.showColorPanel = true
+                    this.showColorPanel = true;
+                    if(this.nowShow){
+                        this[this.nowShow] = false;
+                    }
+                    this.nowShow = 'showColorPanel';
                 }
             },
             showTPanel(){
                 if(this.showTimePanel){
                     this.showTimePanel = false;
+                    this.nowShow = '';
                 }else{
                     this.showTimePanel = true;
+                    if(this.nowShow){
+                        this[this.nowShow] = false;
+                    }
+                    this.nowShow = 'showTimePanel';
                 }
             },
             showUPanel(){
                 if(this.showUploadPanel){
                     this.showUploadPanel = false;
+                    this.nowShow = '';
                 }else{
                     this.showUploadPanel = true;
+                    if(this.nowShow){
+                        this[this.nowShow] = false;
+                    }
+                    this.nowShow = 'showUploadPanel';
                 }
             },
             chooseColor(color){
                 this.noteDetail.color = color;
+                this.showCPanel();
             },
-            change(){
-                console.log(new Date($('#date')[0].value))
+            timechange(){
+                this.showTPanel();
             }
         },
         created(){

@@ -10,7 +10,7 @@
             <a class="time-btn" @click="showTPanel"><i class="fa fa-clock-o"></i></a>
             <span class="time-show">{{calltime | formatDate3}}</span>
             <div class="setTime" v-show="showTimePanel">
-                <input class="form-controller" id="date" type="date" v-model="calltime">
+                <input class="form-controller" id="date" type="date" v-model="calltime" @change="timechange">
             </div>
             <a class="upload-btn" @click="showUPanel"><i class="fa fa-paperclip"></i></a>
             <div class="setUpload" v-show="showUploadPanel">
@@ -29,7 +29,7 @@
             </div>
             <a class="save-btn" @click="save"><i class="fa fa-plus"></i></a>
         </div>
-        <div class="note-content" contenteditable="true" style="border:1px solid #999999">
+        <div class="note-content" contenteditable="true">
             {{{text}}}
         </div>
 
@@ -95,7 +95,8 @@
 
                         if(200 === data.code){
                             this.showMsg('上传成功','success')
-                            $('.note-content').append('<img src="'+data.msg.url+'" />')
+                            $('.note-content').append('<img src="'+data.msg.url+'" />');
+                            this.showUPanel()
 
                         }else{
                             this.showMsg('上传失败')
@@ -146,7 +147,11 @@
                 }
             },
             chooseColor(color){
-                this.color = color
+                this.color = color;
+                this.showCPanel();
+            },
+            timechange(){
+                this.showTPanel();
             }
         },
         data(){
@@ -157,7 +162,7 @@
                 showUploadPanel:false,
                 text:'',
                 color:'color1',
-                calltime:'2016-9-10',
+                calltime:'',
                 nowShow:''
 
             }
