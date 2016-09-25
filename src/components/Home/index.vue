@@ -9,6 +9,9 @@
                 <a class="avatar" href="javascript:;" :title="auth.user.nickname">
                     <img :src="auth.user.avatar || defaultAvatar">
                 </a>
+                <a class="logout" href="javascript:;" @click="logout" title="退出登录">
+                    <i class="fa fa-sign-out"></i>
+                </a>
 
             </div>
             <div class="note-list">
@@ -34,7 +37,7 @@
 </style>
 <script>
 
-    import {getUserInfo,getNoteList,deleteNote} from '../../vuex/actions'
+    import {getUserInfo,getNoteList,deleteNote,logout} from '../../vuex/actions'
     import defaultAvatar from '../../assets/images/userimg.png'
 
     export default{
@@ -45,7 +48,7 @@
 
             },
             actions:{
-                getUserInfo,getNoteList,deleteNote
+                getUserInfo,getNoteList,deleteNote,logout
             }
         },
         created(){
