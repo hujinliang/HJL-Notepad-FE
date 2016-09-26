@@ -1,5 +1,8 @@
 <template>
     <div class="login-box">
+        <div class="logo">
+            <img src="../../assets/images/favicon.jpg">
+        </div>
         <div class="loginForm">
             <div class="form-container">
                 <validator name="loginValidation">

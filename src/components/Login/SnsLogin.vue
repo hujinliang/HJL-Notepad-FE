@@ -17,7 +17,7 @@
         },
         methods:{
             snsLogin(item){
-                let search = API_ROOT + 'auth/' + item + '?redirectUrl=' + window.location.origin;
+                let search = API_ROOT + '/auth/' + item + '?redirectUrl=' + window.location.origin;
                 const token = getCookie('token');
                 if (token) {
                     search += '&access_token=' + token.replace(/(^\")|(\"$)/g, '')

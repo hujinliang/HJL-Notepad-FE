@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start":"webpack --color --config ./webpack.config.prod.js && pm2 start process.json",
+    "dev":"gulp serve"
   },
   "repository": {
     "type": "git",
