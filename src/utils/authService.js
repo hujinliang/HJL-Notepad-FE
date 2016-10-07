@@ -5,6 +5,12 @@ import cookie from 'react-cookie'
 import {CookieDomain} from '../config'
 let cookieConfig = {}
 
+if(CookieDomain){
+    cookieConfig = {
+        domain:CookieDomain
+    }
+}
+
 export function saveCookie(name,value){
     cookie.save(name,value,cookieConfig)
 }
