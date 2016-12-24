@@ -43,7 +43,7 @@ $ npm start
 ![5](./screenshots/3.png)
 ![6](./screenshots/5.png)
 
-项目demo：[HJL-Blog](http://note.hjlclould.cn/)
+项目demo：[HJL-Note](http://note.hjlclould.cn/)
 
 ## 未完成项
 
